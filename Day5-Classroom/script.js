@@ -20,7 +20,8 @@ function getData() {
                 }
                 console.log(array[i]);
                 var tRow =
-                    ` <tr> 
+                    ` <tr ${count % 2 == 0 ? 'class="bg-light"' : " "
+                    }> 
                       <th scope="row">${count}</th>
                       <td><img src="${array[i].img}" alt="${array[i].name + " " + array[i].surname}"></td>
                       <td>${array[i].name}        </td>
