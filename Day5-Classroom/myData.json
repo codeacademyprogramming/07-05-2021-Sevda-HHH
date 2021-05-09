@@ -1,0 +1,84 @@
+{
+    "img": "https://randomuser.me/api/portraits/men/42.jpg",
+    "name": "Jesus",
+    "loans": [
+        {
+            "amount": {
+                "value": 22000,
+                "currency": "AZN"
+            },
+            "closed": false,
+            "loaner": "Bank of Trauny",
+            "period": {
+                "type": "month",
+                "value": 36
+            },
+            "perMonth": {
+                "value": 611.11,
+                "currency": "AZN"
+            },
+            "dueAmount": {
+                "value": 4200,
+                "currency": "AZN"
+            },
+            "loanPeriod": {
+                "end": "22.01.2022",
+                "start": "22.01.2019"
+            },
+            "interestRate": 18
+        },
+        {
+            "amount": {
+                "value": 5000,
+                "currency": "AZN"
+            },
+            "closed": false,
+            "loaner": "TBC",
+            "period": {
+                "type": "month",
+                "value": 12
+            },
+            "perMonth": {
+                "value": 416.66,
+                "currency": "AZN"
+            },
+            "dueAmount": {
+                "value": 2916,
+                "currency": "AZN"
+            },
+            "loanPeriod": {
+                "end": "03.01.2022",
+                "start": "03.01.2021"
+            },
+            "interestRate": 22
+        },
+        {
+            "amount": {
+                "value": 8500,
+                "currency": "AZN"
+            },
+            "closed": true,
+            "loaner": "Revolut",
+            "period": {
+                "type": "month",
+                "value": 24
+            },
+            "dueAmount": {
+                "value": 0,
+                "currency": "AZN"
+            },
+            "loanPeriod": {
+                "end": "22.01.2018",
+                "start": "22.01.2016"
+            },
+            "interestRate": 19
+        }
+    ],
+    "salary": {
+        "value": 4500,
+        "currency": "AZN"
+    },
+    "surname": "Myers",
+    "hasSalaryCard": true,
+    "hasLoanHistory": true
+}
