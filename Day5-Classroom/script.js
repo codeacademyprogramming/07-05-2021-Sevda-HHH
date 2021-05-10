@@ -9,22 +9,23 @@ $(document).ready(function () {
             var count = 1;
 
             // each client on a table 
-            for (let i = 0; i < array.length; i++) {
-                var hasActive = false;
-                var totalMonthlyLoan = 0
+            function getClients() {
+                for (let i = 0; i < array.length; i++) {
+                    var hasActive = false;
+                    var totalMonthlyLoan = 0
 
-                // checking each loan of a client 
-                for (let loan = 0; loan < array[i].loans.length; loan++) {
-                    if (array[i].loans[loan].closed == false) {
-                        hasActive = true;
-                        totalMonthlyLoan += array[i].loans[loan].perMonth.value
+                    // checking each loan of a client 
+                    for (let loan = 0; loan < array[i].loans.length; loan++) {
+                        if (array[i].loans[loan].closed == false) {
+                            hasActive = true;
+                            totalMonthlyLoan += array[i].loans[loan].perMonth.value
+                        }
                     }
-                }
 
-                // adding client row  to the table
-                var tRow =
-                    ` <tr ${count % 2 == 0 ? 'class="bg-light"' : " "
-                    }> 
+                    // adding client row  to the table
+                    var tRow =
+                        ` <tr ${count % 2 == 0 ? 'class="bg-light"' : " "
+                        }> 
                           <th scope="row">${count}</th>
                           <td><img src="${array[i].img}" alt="${array[i].name + " " + array[i].surname}"></td>
                           <td>${array[i].name}        </td>
@@ -38,9 +39,63 @@ $(document).ready(function () {
                     Details
                       </button ></td >  
                           </tr > `
-                table.innerHTML += tRow
-                count++;
+                    table.innerHTML += tRow
+                    count++;
+
+
+                }
             }
+            getClients()
+
+            // filter list by active loans
+            $(".form-switch").change(function () {
+                $(this).toggleClass("checkedd")
+                if ($(this).attr("class") === "form-check form-switch checkedd") {
+                    table.innerHTML = " "
+                    var count = 1;
+                    array.forEach(element => {
+                        var countt = 0;
+
+                        element.loans.forEach(loan => {
+                            if (loan.closed == false && countt == 0) {
+                                countt++;
+                                var hasActive = false;
+                                var totalMonthlyLoan = 0
+
+                                if (loan.closed == false) {
+                                    hasActive = true;
+                                    totalMonthlyLoan += loan.perMonth.value
+                                }
+
+                                // adding client row  to the table
+                                var tR =
+                                    ` <tr ${count % 2 == 0 ? 'class="bg-light"' : " "
+                                    }> 
+                                                  <th scope="row">${count}</th>
+                                                  <td><img src="${element.img}" alt="${element.name + " " + element.surname}"></td>
+                                                  <td>${element.name}        </td>
+                                                  <td>${element.surname} </td> 
+                                                  <td>${element.salary.value}  AZN</td> 
+                                                  <td> ${hasActive == true ? "Yes" : "No"}</td>
+                                                  <td> ${totalMonthlyLoan} AZN  </td> 
+                        
+                                                  <td> ${totalMonthlyLoan < (element.salary.value / 100 * 45) ? "Yes" : "No"}</td>  
+                                                  <td style="vertical-align: middle;">  <button type="button" data-num="${array.length}" class="getDetails btn btn - primary" data-bs-toggle="modal" data-bs-target=".details">
+                                            Details
+                                              </button ></td >  
+                                                  </tr > `
+
+                                table.innerHTML += tR;
+                                count++;
+                            }
+
+                        })
+                    });
+                } else {
+                    table.innerHTML = " ";
+                    getClients()
+                }
+            })
 
             // loans details modal page
             $("#myData").on("click", ".getDetails", function (e) {
@@ -52,14 +107,14 @@ $(document).ready(function () {
                         for (let index = 0; index < array[i].loans.length; index++) {
                             var loan = array[i].loans[index]
                             var tr = `<tr ${count % 2 == 0 ? "class='bg-light'" : " "}>
-                        <td>${count}</td>
-                        <td>${loan.loaner}</td>
-                        <td><b>${loan.amount.value}</b> AZN</td>
-                        <td>${loan.closed == true ? "Closed" : "Active"}</td>
-                        <td><b>${loan.dueAmount.value}</b> AZN</td>
-                        <td>${loan.loanPeriod.start}</td>
-                        <td>${loan.loanPeriod.end}</td>
-                        </tr>`
+            <td>${count}</td>
+            <td>${loan.loaner}</td>
+            <td><b>${loan.amount.value}</b> AZN</td>
+            <td>${loan.closed == true ? "Closed" : "Active"}</td>
+            <td><b>${loan.dueAmount.value}</b> AZN</td>
+            <td>${loan.loanPeriod.start}</td>
+            <td>${loan.loanPeriod.end}</td>
+            </tr>`
                             var cName = `<p>${array[i].name + " " + array[i].surname + "'s loan details"} </p > `
                             if (count == 1) {
                                 $(".modal-title").append(cName)
@@ -71,7 +126,10 @@ $(document).ready(function () {
                 }
             })
 
+
         }
+
+
     }
 
     http.open("GET", "https://api.npoint.io/ec21414b0e15972dbfde/data/");
