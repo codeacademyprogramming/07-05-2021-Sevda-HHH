@@ -5,3 +5,8 @@
 .modal-footer {
     border-top: none !important;
 }
+
+.noFount {
+    font-size: 50px;
+    width: 400% !important;
+}

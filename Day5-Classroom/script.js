@@ -9,7 +9,7 @@ $(document).ready(function () {
             var count = 1;
 
             // each client on a table 
-            function getClients() {
+            function getClients(array) {
                 for (let i = 0; i < array.length; i++) {
                     var hasActive = false;
                     var totalMonthlyLoan = 0
@@ -45,7 +45,7 @@ $(document).ready(function () {
 
                 }
             }
-            getClients()
+            getClients(array)
 
             // filter list by active loans
             $(".form-switch").change(function () {
@@ -93,7 +93,7 @@ $(document).ready(function () {
                     });
                 } else {
                     table.innerHTML = " ";
-                    getClients()
+                    getClients(array)
                 }
             })
 
@@ -126,6 +126,18 @@ $(document).ready(function () {
                 }
             })
 
+            $("#seachSubmit").click(function () {
+                var inputName = $("#serachVal").val()
+                var arr = array.filter(a => (a.name.toLowerCase()).includes(inputName.toLowerCase()))
+                table.innerHTML = ' ';
+
+                if (arr.length < 1) {
+                    var em = `<div class="w-100 noFount text-danger text-center">Nothing found</div>`;
+                    table.innerHTML += em;
+                } else {
+                    getClients(arr)
+                }
+            })
 
         }
 
