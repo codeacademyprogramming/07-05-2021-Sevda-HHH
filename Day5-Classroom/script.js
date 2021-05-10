@@ -7,6 +7,7 @@ $(document).ready(function () {
             let array = JSON.parse(this.responseText)
             var table = document.getElementById("myData")
             var count = 1;
+            getClients(array)
 
             // each client on a table 
             function getClients(array) {
@@ -45,7 +46,6 @@ $(document).ready(function () {
 
                 }
             }
-            getClients(array)
 
             // filter list by active loans
             $(".form-switch").change(function () {
@@ -53,6 +53,7 @@ $(document).ready(function () {
                 if ($(this).attr("class") === "form-check form-switch checkedd") {
                     table.innerHTML = " "
                     var count = 1;
+
                     array.forEach(element => {
                         var countt = 0;
 
@@ -69,20 +70,20 @@ $(document).ready(function () {
 
                                 // adding client row  to the table
                                 var tR =
-                                    ` <tr ${count % 2 == 0 ? 'class="bg-light"' : " "
-                                    }> 
+                                    ` <tr ${count % 2 == 0 ? 'class="bg-light"' : " "}> 
                                                   <th scope="row">${count}</th>
                                                   <td><img src="${element.img}" alt="${element.name + " " + element.surname}"></td>
                                                   <td>${element.name}        </td>
                                                   <td>${element.surname} </td> 
                                                   <td>${element.salary.value}  AZN</td> 
                                                   <td> ${hasActive == true ? "Yes" : "No"}</td>
-                                                  <td> ${totalMonthlyLoan} AZN  </td> 
-                        
+                                                  <td> ${totalMonthlyLoan} AZN  </td>  
                                                   <td> ${totalMonthlyLoan < (element.salary.value / 100 * 45) ? "Yes" : "No"}</td>  
-                                                  <td style="vertical-align: middle;">  <button type="button" data-num="${array.length}" class="getDetails btn btn - primary" data-bs-toggle="modal" data-bs-target=".details">
-                                            Details
-                                              </button ></td >  
+                                                  <td style="vertical-align: middle;"> 
+                                                   <button type="button" data-num="${array.length}" 
+                                                   class="getDetails btn btn - primary"
+                                                 data-bs-toggle="modal" data-bs-target=".details">
+                                                 Details  </button ></td >  
                                                   </tr > `
 
                                 table.innerHTML += tR;
@@ -126,6 +127,7 @@ $(document).ready(function () {
                 }
             })
 
+            // search by name and surname 
             $("#seachSubmit").click(function () {
                 var inputName = $("#serachVal").val()
                 var arr = array.filter(a => (a.name.toLowerCase()).includes(inputName.toLowerCase()) || (a.surname.toLowerCase()).includes(inputName.toLowerCase()))
