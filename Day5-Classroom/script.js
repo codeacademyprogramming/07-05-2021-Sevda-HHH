@@ -128,7 +128,7 @@ $(document).ready(function () {
 
             $("#seachSubmit").click(function () {
                 var inputName = $("#serachVal").val()
-                var arr = array.filter(a => (a.name.toLowerCase()).includes(inputName.toLowerCase()))
+                var arr = array.filter(a => (a.name.toLowerCase()).includes(inputName.toLowerCase()) || (a.surname.toLowerCase()).includes(inputName.toLowerCase()))
                 table.innerHTML = ' ';
 
                 if (arr.length < 1) {
